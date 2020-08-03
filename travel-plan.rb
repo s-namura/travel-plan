@@ -1,31 +1,32 @@
 # 旅行プラン提示
-puts "旅行プランを選択してください"
-puts "1. 沖縄旅行 　（￥10,000）"
-puts "2. 北海道旅行 （￥20,000）"
-puts "3. 九州旅行   （￥15,000）"
+puts <<~TEXT
+旅行プランを選択してください
+1. 沖縄旅行   （¥10,000）
+2. 北海道旅行  (¥20,000）
+3. 九州旅行   （¥15,000）
+TEXT
 puts ""
 
 # プラン選択
-print "プランを選択　"
-
-plan = gets.to_i
-if plan ==1 || plan ==2 || plan ==3
-        puts ""
-else
-        puts "選択した番号はありません"
-        puts "正しい選択番号を入力してください"
-        puts "１ 沖縄　２ 北海道　３ 九州　の中から選んでください"
-        plan = gets.to_i
-end        
+print "プランを選択"
+while true
+   plan = gets.to_i
+   break if (1..3).include?(plan)
+   puts <<~TEXT
+   選択した番号はありません
+   正しい選択番号(1〜3)を入力してください
+   TEXT
+end
 
 # プラン確認・人数入力
-if     plan == 1
+case plan
+when(1) then
         price = 10000
         puts "沖縄旅行ですね。何人で行きますか？"
-elsif  plan == 2
+when(2) then
         price = 20000
         puts "北海道旅行ですね。何人で行きますか？"
-else   plan == 3
+when(3)
         price = 15000
         puts "九州旅行ですね。何人で行きますか？"
 end
@@ -33,7 +34,7 @@ end
 
 # 旅行代金
  puts "---------------------------------"
- print "人数を入力　  "
+ print "人数を入力  "
  people = gets.to_i
  puts "---------------------------------"
  puts ""
@@ -46,4 +47,4 @@ else
 end
 puts ""
 
-puts "合計料金："+"￥#{price.floor}"
+puts "合計料金："+"¥#{price.floor}"
