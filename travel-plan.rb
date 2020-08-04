@@ -20,15 +20,15 @@ end
 
 # プラン確認・人数入力
 case plan
-when(1) then
-        price = 10000
-        puts "沖縄旅行ですね。何人で行きますか？"
-when(2) then
-        price = 20000
-        puts "北海道旅行ですね。何人で行きますか？"
-when(3)
-        price = 15000
-        puts "九州旅行ですね。何人で行きますか？"
+when 1 then
+	price = 10000
+	puts "沖縄旅行ですね。何人で行きますか？"
+when 2 then
+	price = 20000
+	puts "北海道旅行ですね。何人で行きますか？"
+when 3
+	price = 15000
+	puts "九州旅行ですね。何人で行きますか？"
 end
 
 
@@ -39,12 +39,12 @@ end
  puts "---------------------------------"
  puts ""
 if people >= 5
-    puts "5人以上なので10％割引となります"
-    puts "---------------------------------"
-    price = price * people * 0.9
+	puts "5人以上なので10％割引となります"
+  puts "---------------------------------"
+	total_price = price * people * 0.9
 else
-    price = price * people
+	total_price = price * people
 end
 puts ""
 
-puts "合計料金："+"¥#{price.floor}"
+puts "合計料金："+"¥#{total_price.floor}"
