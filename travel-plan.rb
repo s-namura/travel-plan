@@ -1,3 +1,7 @@
+# active_supportの読み込み
+require 'active_support'
+require 'active_support/core_ext/numeric/conversions'
+
 # 旅行プラン提示
 puts <<~TEXT
 旅行プランを選択してください
@@ -10,12 +14,12 @@ puts ""
 # プラン選択
 print "プランを選択"
 while true
-   plan = gets.to_i
-   break if (1..3).include?(plan)
-   puts <<~TEXT
-   選択した番号はありません
-   正しい選択番号(1〜3)を入力してください
-   TEXT
+  plan = gets.to_i
+  break if (1..3).include?(plan)
+  puts <<~TEXT
+  選択した番号はありません
+  正しい選択番号(1〜3)を入力してください
+  TEXT
 end
 
 # プラン確認・人数入力
@@ -33,18 +37,18 @@ end
 
 
 # 旅行代金
- puts "---------------------------------"
- print "人数を入力  "
- people = gets.to_i
- puts "---------------------------------"
- puts ""
+puts "---------------------------------"
+print "人数を入力  "
+people = gets.to_i
+puts "---------------------------------"
+puts ""
 if people >= 5
 	puts "5人以上なので10％割引となります"
-  puts "---------------------------------"
+	puts "---------------------------------"
 	total_price = price * people * 0.9
 else
 	total_price = price * people
 end
 puts ""
 
-puts "合計料金："+"¥#{total_price.floor}"
+puts "合計料金："+"¥#{total_price.floor.to_s(:delimited, delimiter: ',')}"
