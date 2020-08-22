@@ -2,39 +2,38 @@
 require 'active_support'
 require 'active_support/core_ext/numeric/conversions'
 
+# 旅行プランデータ
+travel_plans = ["沖縄旅行（¥10,000）","北海道旅行（¥20,000）", "九州旅行（¥15,000）"]
+plan_prices = [10000,20000,15000]
+
 # 旅行プラン提示
-puts <<~TEXT
-旅行プランを選択してください
-1. 沖縄旅行   （¥10,000）
-2. 北海道旅行  (¥20,000）
-3. 九州旅行   （¥15,000）
-TEXT
-puts ""
+puts "今回のお勧めプランです！"
+travel_plans.each.with_index(1) do |travel_plan,i|
+  puts "#{i}: #{travel_plan} "
+end
 
 # プラン選択
-print "プランを選択"
+print "プランを選択して下さい。"
 while true
-  plan = gets.to_i
-  break if (1..3).include?(plan)
+  plan_num = gets.to_i
+  break if (1..3).include?(plan_num)
   puts <<~TEXT
-  選択した番号はありません
-  正しい選択番号(1〜3)を入力してください
+    申し訳ありません。選択した番号はございません。
+    正しい選択番号(1〜3)を入力してください
   TEXT
 end
-
 # プラン確認・人数入力
-case plan
-when 1 then
-	price = 10000
-	puts "沖縄旅行ですね。何人で行きますか？"
-when 2 then
-	price = 20000
-	puts "北海道旅行ですね。何人で行きますか？"
+case plan_num
+when 1
+  price = plan_prices[plan_num-1]
+  puts "#{travel_plans[plan_num-1]}ですね。何人で行きますか？"
+when 2
+  price = plan_prices[plan_num-1]
+  puts "#{travel_plans[plan_num-1]}ですね。何人で行きますか？"
 when 3
-	price = 15000
-	puts "九州旅行ですね。何人で行きますか？"
+  price = plan_prices[plan_num-1]
+  puts "#{travel_plans[plan_num-1]}ですね。何人で行きますか？"
 end
-
 
 # 旅行代金
 puts "---------------------------------"
@@ -49,6 +48,6 @@ if people >= 5
 else
 	total_price = price * people
 end
-puts ""
+puts "ありがとうございます！"
 
-puts "合計料金："+"¥#{total_price.floor.to_s(:delimited, delimiter: ',')}"
+puts "合計料金："+"¥#{total_price.floor.to_s(:delimited, delimiter: ',')}です。"
