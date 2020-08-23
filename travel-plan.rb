@@ -1,53 +1,62 @@
 # active_supportの読み込み
 require 'active_support'
 require 'active_support/core_ext/numeric/conversions'
+require 'pry'
 
 # 旅行プランデータ
-travel_plans = ["沖縄旅行（¥10,000）","北海道旅行（¥20,000）", "九州旅行（¥15,000）"]
-plan_prices = [10000,20000,15000]
+travel_plans = [
+	{ place: "沖縄", price: 10000 },
+	{ place: "北海道", price: 20000 },
+	{ place: "九州", price: 15000 }  
+]
 
 # 旅行プラン提示
-puts "今回のお勧めプランです！"
-travel_plans.each.with_index(1) do |travel_plan,i|
-  puts "#{i}: #{travel_plan} "
+def info(travel_plans)
+	puts "今回のお勧めプランです！"
+	travel_plans.each.with_index(1) do |travel_plan,number|
+		puts "#{number}:#{travel_plan[:place]}旅行 (¥#{travel_plan[:price]})"
+	end
 end
 
 # プラン選択
-print "プランを選択して下さい。"
-while true
-  plan_num = gets.to_i
-  break if (1..3).include?(plan_num)
-  puts <<~TEXT
+def plan_select(travel_plans)
+	print "プランを選択して下さい。"
+	while true
+  	plan_num = gets.to_i
+  	break if (1..3).include?(plan_num)
+  	puts <<~TEXT
     申し訳ありません。選択した番号はございません。
     正しい選択番号(1〜3)を入力してください
-  TEXT
-end
-# プラン確認・人数入力
-case plan_num
-when 1
-  price = plan_prices[plan_num-1]
-  puts "#{travel_plans[plan_num-1]}ですね。何人で行きますか？"
-when 2
-  price = plan_prices[plan_num-1]
-  puts "#{travel_plans[plan_num-1]}ですね。何人で行きますか？"
-when 3
-  price = plan_prices[plan_num-1]
-  puts "#{travel_plans[plan_num-1]}ですね。何人で行きますか？"
+ 		TEXT
+	end
+	selected_number = plan_num
+	selected_travel_plan = travel_plans[selected_number -1] 
+  puts "#{selected_travel_plan[:place]}旅行が選択されました"
+  puts "金額はお一人様#{selected_travel_plan[:price]}円です"
+  selected_price = selected_travel_plan[:price]  #メソッドの最後の値
 end
 
-# 旅行代金
-puts "---------------------------------"
-print "人数を入力  "
-people = gets.to_i
-puts "---------------------------------"
-puts ""
-if people >= 5
-	puts "5人以上なので10％割引となります"
+# 人数入力・旅行代金計算
+def plan_price(selected_price)
+	tanka = selected_price
 	puts "---------------------------------"
-	total_price = price * people * 0.9
-else
-	total_price = price * people
-end
-puts "ありがとうございます！"
+	print "人数を入力  "
+	people = gets.to_i
+	puts "---------------------------------"
+	puts ""
+	if people >= 5
+		puts "5人以上なので10％割引となります"
+		puts "---------------------------------"
+		total_price = tanka * people * 0.9
+	else
+		total_price = tanka * people
+	end
+	puts "ありがとうございます！"
+	puts "合計料金："+"¥#{total_price.floor.to_s(:delimited, delimiter: ',')}です。"
 
-puts "合計料金："+"¥#{total_price.floor.to_s(:delimited, delimiter: ',')}です。"
+end
+
+info(travel_plans)
+plan_select(travel_plans)
+binding pry
+plan_price(selected_price)
