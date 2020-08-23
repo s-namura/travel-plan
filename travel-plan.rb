@@ -33,7 +33,9 @@ def plan_select(travel_plans)
 	selected_travel_plan = travel_plans[selected_number -1] 
   puts "#{selected_travel_plan[:place]}旅行が選択されました"
   puts "金額はお一人様#{selected_travel_plan[:price]}円です"
-  selected_price = selected_travel_plan[:price]  #メソッドの最後の値
+	selected_price = selected_travel_plan[:price]  #メソッドの最後の値
+	puts selected_price
+	return selected_price
 end
 
 # 人数入力・旅行代金計算
@@ -58,5 +60,5 @@ end
 
 info(travel_plans)
 plan_select(travel_plans)
-binding pry
+# binding pry
 plan_price(selected_price)
