@@ -14,7 +14,7 @@ travel_plans = [
 def info(travel_plans)
 	puts "今回のお勧めプランです！"
 	travel_plans.each.with_index(1) do |travel_plan,number|
-		puts "#{number}:#{travel_plan[:place]}旅行 (¥#{travel_plan[:price]})"
+		puts "#{number}: #{travel_plan[:place]}旅行 (¥#{travel_plan[:price]})"
 	end
 end
 
@@ -34,8 +34,6 @@ def plan_select(travel_plans)
   puts "#{selected_travel_plan[:place]}旅行が選択されました"
   puts "金額はお一人様#{selected_travel_plan[:price]}円です"
 	selected_price = selected_travel_plan[:price]  #メソッドの最後の値
-	puts selected_price
-	return selected_price
 end
 
 # 人数入力・旅行代金計算
@@ -45,7 +43,7 @@ def plan_price(selected_price)
 	print "人数を入力  "
 	people = gets.to_i
 	puts "---------------------------------"
-	puts ""
+	puts "ありがとうございます！"
 	if people >= 5
 		puts "5人以上なので10％割引となります"
 		puts "---------------------------------"
@@ -53,12 +51,14 @@ def plan_price(selected_price)
 	else
 		total_price = tanka * people
 	end
-	puts "ありがとうございます！"
 	puts "合計料金："+"¥#{total_price.floor.to_s(:delimited, delimiter: ',')}です。"
 
 end
 
+# 旅行プランの提示
 info(travel_plans)
-plan_select(travel_plans)
-# binding pry
+# プラン（場所）の選択
+selected_price = plan_select(travel_plans)
+#binding.pry
+# 金額の計算・お知らせ
 plan_price(selected_price)
